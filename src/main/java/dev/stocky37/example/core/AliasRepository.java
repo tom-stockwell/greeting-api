@@ -9,6 +9,6 @@ import javax.enterprise.context.ApplicationScoped;
 public class AliasRepository implements PanacheRepository<Alias> {
 
 	public Optional<Alias> findByName(String name) {
-		return find("from Alias where name = ?1", name).stream().findFirst();
+		return find("from Alias where name = ?1", name.toLowerCase()).stream().findFirst();
 	}
 }
