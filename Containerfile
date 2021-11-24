@@ -26,11 +26,11 @@ FROM registry.redhat.io/ubi8/openjdk-17 as builder
 # download dependencies first - improves development speeds due to caching
 COPY --chown=jboss .mvn ./.mvn
 COPY --chown=jboss pom.xml mvnw ./
-RUN ./mvnw dependency:resolve
+RUN ./mvnw -B -ntp dependency:resolve
 
 # build
 COPY --chown=jboss src ./src
-RUN ./mvnw package -DskipTests
+RUN ./mvnw package -B -ntp -DskipTests
 
 FROM registry.redhat.io/ubi8/openjdk-17-runtime
 
