@@ -27,8 +27,14 @@ jobs:
         with:
           java-version: 17
 
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven
+
       - name: Test
-        run: ./mvnw verify -B -ntp
+        run: ./mvnw verify -B
 
   build:
     name: Build & publish image
