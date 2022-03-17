@@ -21,7 +21,7 @@
 # docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/greeting-service-jvm
 #
 ###
-FROM registry.redhat.io/ubi8/openjdk-17 as builder
+FROM registry.access.redhat.com/ubi8/openjdk-17 as builder
 
 # download dependencies first - improves development speeds due to caching
 COPY --chown=jboss .mvn ./.mvn
@@ -32,10 +32,10 @@ RUN ./mvnw -B -ntp dependency:resolve
 COPY --chown=jboss src ./src
 RUN ./mvnw package -B -ntp -DskipTests
 
-FROM registry.redhat.io/ubi8/openjdk-17-runtime
+
+FROM registry.access.redhat.com/ubi8/openjdk-17-runtime
 
 ARG RUN_JAVA_VERSION=1.3.8
-
 USER 0
 
 # Install the run-java script
